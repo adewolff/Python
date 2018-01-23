@@ -1,3 +1,4 @@
+#Finds change solution using least amount of coins.
 from math import fmod
 
 quarter = 25
