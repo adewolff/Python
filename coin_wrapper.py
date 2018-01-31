@@ -6,10 +6,6 @@ def main():
     coincountconv()
     wrapperconv()
     print("You will need", wrapperconv.penny_count, "penny wrappers.")
-    print("You will need", wrapperconv.nickel_count, "nickel wrappers.")
-    print("You will need", wrapperconv.dime_count, "dime wrappers.")
-    print("You will need", wrapperconv.quarter_count, "quarter wrappers.")
-    print("You will need", wrapperconv.dollar_count, "dollar wrappers.")
 
 
 def coinweightgen():
@@ -56,7 +52,7 @@ def coincountconv():
     coincountconv.nickel_count = math.ceil(coinweightgen.nickel_weight / 5.0)
     coincountconv.dime_count = math.ceil(coinweightgen.dime_weight / 2.268)
     coincountconv.quarter_count = math.ceil(coinweightgen.quarter_weight / 5.670)
-    coincountconv.dollar_count = math.ceil(coinweightgen.dollar_weight / 8.1)
+    coincountconv.dollar_count = math.ceil(coinweightgen.penny_weight / 8.1)
 
 def wrapperconv():
     #calculates amount of coin wrappers needed for earch coin type based on how many coins there are.
