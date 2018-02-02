@@ -3,15 +3,15 @@ from reddit_user import *
 import ast
 
 def main():
-    username = "wolfypolli"
-    jdata(username)
-    ##print(jdata.profdata)
-    print(jdata.profdata['data']['children'][0]['data']['domain'])
+    user1 = input("user1: ")
+    user1data = jdata(user1)
+    print(user1data['data']['children'][0]['data']['domain'])
 
 
 def jdata(username):
     user = reddituser(username)
-    jdata.profdata = user.importer()
+    profdata = user.importer()
+    return profdata
 
 
 if __name__ == '__main__':
