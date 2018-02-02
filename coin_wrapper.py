@@ -62,4 +62,5 @@ def wrapperconv():
     wrapperconv.quarter_count = int(math.ceil(coincountconv.quarter_count / 40))
     wrapperconv.dollar_count = int(math.ceil(coincountconv.dollar_count / 25))
 
-main()
+if __name__ == '__main__':
+    main()

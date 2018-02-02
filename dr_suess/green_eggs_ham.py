@@ -13,4 +13,5 @@ def importer():
     content = content.replace('i-', 'I-')
     print(content, file=open('suess_fix.txt', 'w'))
 
-main()
+if __name__ == '__main__':
+    main()
