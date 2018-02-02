@@ -6,12 +6,12 @@ def main():
     username = "wolfypolli"
     jdata(username)
     ##print(jdata.profdata)
-    ##print(jdata.profdata.index(['data']['children']['0']['data']['domain']))
+    print(jdata.profdata['data']['children'][0]['data']['domain'])
 
 
 def jdata(username):
     user = reddituser(username)
-    jdata.profdata = reddituser.importer(user)
+    jdata.profdata = user.importer()
 
 
 if __name__ == '__main__':
