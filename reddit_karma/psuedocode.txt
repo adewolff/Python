@@ -1,0 +1,5 @@
+check link_author
+if link_author is the same as user, get the score for current child.
+if link author is different than user, go to next child until link author is the same as user
+return score for both children
+compare the two scores
