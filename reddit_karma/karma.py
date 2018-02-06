@@ -1,18 +1,23 @@
 '''Compares Karma received between 2 users' most recent posts'''
 from reddit_user import reddituser
 import ast
-import logging
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def main():
-    user1 = "wolfypolli"
-    user2 = "amaklp"
+    main.user1 = "wolfypolli"
+    main.user2 = "amaklp"
 
-    user1data = jdata(user1)
-    user2data = jdata(user2)
+    user1data = jdata(main.user1)
+    user2data = jdata(main.user2)
 
-    linkscore(user1data)
-    linkscore(user2data)
+    main.user1_karma = reddituser.linkscore(user1data)
+    main.user2_karma = reddituser.linkscore(user2data)
+
+    print(main.user1_karma)
+    print(main.user2_karma)
+    
+    highest_karma(main.user1, main.user2)
+
+
 
 
 def jdata(username):
@@ -20,17 +25,11 @@ def jdata(username):
     profdata = user.importer()
     return profdata
 
-def linkscore(userdata):
-    '''returns the karma for the most recent link posted'''
-    i= 0
-    type = "0"
-    while type not in {"t1"}:
-        type = userdata['data']['children'][i]['kind']
-        i += 1
-        continue
-    linkkarma = userdata['data']['children'][i]['data']['score']
-    logging.debug("link karma is {}".format(linkkarma))
-    return linkkarma
+def highest_karma(first_user, second_user):
+    if main.user1_karma > main.user2_karma:
+        print("{}'s most recent link has the highest Karma, with {} points.".format(main.user2, main.user1_karma))
+    elif main.user2_karma > main.user1_karma:
+        print("{}'s most recent link has the highest Karma, with {} points.".format(main.user2, main.user2_karma))
 
 
 if __name__ == '__main__':
