@@ -11,11 +11,13 @@ def main():
 
     main.user1_karma = reddituser.linkscore(user1data)
     main.user2_karma = reddituser.linkscore(user2data)
+    print("user1: {}".format(main.user1_karma))
+    print("user2: {}".format(main.user2_karma))
 
-    print(main.user1_karma)
-    print(main.user2_karma)
+    # print(main.user1_karma)
+    # print(main.user2_karma)
     
-    highest_karma(main.user1, main.user2)
+    # highest_karma(main.user1, main.user2)
 
 
 
