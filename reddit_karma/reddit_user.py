@@ -1,7 +1,9 @@
-'''imports a reddit user's .json file and can parse 
-   for post/comment info.'''
+'''imports a reddit user's .json file and can parse for post/comment info.'''
 
-import urllib.request, json
+import urllib.request, json, logging
+
+logging.basicConfig(filename='error-log.txt', level=logging.DEBUG, 
+format='%(asctime)s - %(levelname)s - %(message)s')
 
 class reddituser(object):
 
@@ -10,13 +12,24 @@ class reddituser(object):
         self.data = self.importer()
 
     def importer(self):
-        '''imports the profile .json data from the Reddit username input'''
+        '''imports the profile .json data from the Reddit username input.
+           accounts for HTTP errors 404 and 429. Any other HTTP error is saved to log.txt.
+        '''
+        try:
+            with urllib.request.urlopen("https://www.reddit.com/user/{}.json".format(self.username)) as url:
+                json_data = json.loads(url.read().decode())
+                return json_data
 
-        with urllib.request.urlopen("https://www.reddit.com/user/{}.json".format(self.username)) as url:
-            json_data = json.loads(url.read().decode())
-            return json_data  
-        #     not in use atm since using offline file instead
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                return 404
+            elif e.code == 429:
+                return 429
+            else:
+                return None
+                logging.debug('importer HTTP Error: {}'.format(e.code))
 
+        ## For using a local .json file:
         # with open('{}.json'.format(self.username)) as json_data:
         #     d = json.load(json_data)
         #     return(d)
@@ -30,8 +43,7 @@ class reddituser(object):
             type = self['data']['children'][i]['kind']
             i += 1
             continue
-        linkkarma = self['data']['children'][i]['data']['score']
-        return linkkarma
+        return self['data']['children'][i]['data']['score']
 
 
 

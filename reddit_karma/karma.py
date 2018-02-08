@@ -1,6 +1,7 @@
 '''Compares Karma received between 2 users' most recent posts'''
+
 from reddit_user import reddituser
-import ast
+import sys
 
 def main():
     main.user1 = "wolfypolli"
@@ -11,27 +12,45 @@ def main():
 
     main.user1_karma = reddituser.linkscore(user1data)
     main.user2_karma = reddituser.linkscore(user2data)
-    print("user1: {}".format(main.user1_karma))
-    print("user2: {}".format(main.user2_karma))
-
-    # print(main.user1_karma)
-    # print(main.user2_karma)
     
-    # highest_karma(main.user1, main.user2)
-
-
+    highest_link_karma(main.user1, main.user2)
 
 
 def jdata(username):
-    user = reddituser(username)
-    profdata = user.importer()
-    return profdata
+    '''returns .json file for indicated username'''
+    
+    while True:
+        
+        user = reddituser(username)
+        profdata = user.importer()
+        
+        # Prompts user to re-enter a user if specified username was not found.
+        if profdata == 404:
+            print("{} doesn't seem to exist.".format(username))
+            sys.exit()
+        elif profdata == 429:
+            print("Too many requests. Please wait before trying again.")
+            sys.exit()
+        elif profdata == None:
+            print("Something went wrong importing userdata. Please check the log file")
+            sys.exit()
+        else:
+            return profdata
 
-def highest_karma(first_user, second_user):
+def highest_link_karma(first_user, second_user):
+    '''compares karma from users 1 and 2's most recent link and evaluates which one 
+       is higher.
+    '''
+
     if main.user1_karma > main.user2_karma:
-        print("{}'s most recent link has the highest Karma, with {} points.".format(main.user2, main.user1_karma))
+        print("{}'s most recent link has the highest Karma, with {} points.".format(
+            main.user2, main.user1_karma))
     elif main.user2_karma > main.user1_karma:
-        print("{}'s most recent link has the highest Karma, with {} points.".format(main.user2, main.user2_karma))
+        print("{}'s most recent link has the highest Karma, with {} points.".format(
+            main.user2, main.user2_karma))
+    elif main.user2_karma == main.user1_karma:
+        print("{} and {}'s most recent links have the same karma, with {} points.".format(
+            main.user1, main.user2, main.user2_karma))
 
 
 if __name__ == '__main__':
