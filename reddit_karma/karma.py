@@ -4,15 +4,16 @@ from reddit_user import reddituser
 import sys
 
 def main():
-    main.user1 = "wolfypolli"
-    main.user2 = "amaklp"
+    main.user1 = "amaklp"
+    main.user2 = "andygmb"
+    main.submission = "comment"
 
     user1data = jdata(main.user1)
     user2data = jdata(main.user2)
 
-    main.user1_karma = reddituser.linkscore(user1data)
-    main.user2_karma = reddituser.linkscore(user2data)
-    
+    main.user1_karma = reddituser.link(user1data, main.submission)
+    main.user2_karma = reddituser.link(user2data, main.submission)
+
     highest_link_karma(main.user1, main.user2)
 
 
@@ -43,14 +44,14 @@ def highest_link_karma(first_user, second_user):
     '''
 
     if main.user1_karma > main.user2_karma:
-        print("{}'s most recent link has the highest Karma, with {} points.".format(
-            main.user2, main.user1_karma))
+        print("{}'s most recent {} has the highest Karma, with {} points.".format(
+            main.user2, main.submission, main.user1_karma))
     elif main.user2_karma > main.user1_karma:
-        print("{}'s most recent link has the highest Karma, with {} points.".format(
-            main.user2, main.user2_karma))
+        print("{}'s most recent {} has the highest Karma, with {} points.".format(
+            main.user2, main.submission, main.user2_karma))
     elif main.user2_karma == main.user1_karma:
-        print("{} and {}'s most recent links have the same karma, with {} points.".format(
-            main.user1, main.user2, main.user2_karma))
+        print("{} and {}'s most recent {} have the same karma, with {} points.".format(
+            main.user1, main.user2, main.submission, main.user2_karma))
 
 
 if __name__ == '__main__':

@@ -34,12 +34,15 @@ class reddituser(object):
         #     d = json.load(json_data)
         #     return(d)
         
-    def linkscore(self):
+    def link(self, submission_type):
         '''returns the karma for the most recent link posted'''
-        
+        if submission_type in {"comment", "comments"}:
+            vector = "t1"
+        elif submission_type in {"link","links"}:
+            vector = "t3"
         i = 0
         type = self['data']['children'][i]['kind']
-        while type not in {"t3"}:
+        while type != vector:
             type = self['data']['children'][i]['kind']
             i += 1
             continue
