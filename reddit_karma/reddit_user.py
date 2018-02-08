@@ -38,8 +38,8 @@ class reddituser(object):
         '''returns the karma for the most recent link posted'''
         
         i = 0
-        type = "0"
-        while type not in {"t1"}:
+        type = self['data']['children'][i]['kind']
+        while type not in {"t3"}:
             type = self['data']['children'][i]['kind']
             i += 1
             continue
