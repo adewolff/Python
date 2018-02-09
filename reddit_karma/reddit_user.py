@@ -34,7 +34,7 @@ class reddituser(object):
         #     d = json.load(json_data)
         #     return(d)
         
-    def link(self, submission_type):
+    def karma(self, submission_type):
         '''returns the karma for the most recent link posted'''
         if submission_type in {"comment", "comments"}:
             vector = "t1"

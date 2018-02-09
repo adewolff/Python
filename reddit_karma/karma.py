@@ -11,8 +11,8 @@ def main():
     user1data = jdata(main.user1)
     user2data = jdata(main.user2)
 
-    main.user1_karma = reddituser.link(user1data, main.submission)
-    main.user2_karma = reddituser.link(user2data, main.submission)
+    main.user1_karma = reddituser.karma(user1data, main.submission)
+    main.user2_karma = reddituser.karma(user2data, main.submission)
 
     highest_link_karma(main.user1, main.user2)
 
