@@ -16,7 +16,9 @@ class reddituser(object):
            accounts for HTTP errors 404 and 429. Any other HTTP error is saved to log.txt.
         '''
         try:
-            with urllib.request.urlopen("https://www.reddit.com/user/{}.json".format(self.username)) as url:
+            with urllib.request.Request("https://www.reddit.com/user/{}.json".format(self.username),
+                                        data = None,
+                                        headers={"user-agent":"Mozilla"}) as url:
                 json_data = json.loads(url.read().decode())
                 return json_data
 
