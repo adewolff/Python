@@ -1,6 +1,6 @@
 '''imports a reddit user's .json file and can parse for post/comment info.'''
 
-import urllib.request, json, logging
+import requests, json, logging
 
 logging.basicConfig(filename='error-log.txt', level=logging.DEBUG, 
 format='%(asctime)s - %(levelname)s - %(message)s')
@@ -16,20 +16,21 @@ class reddituser(object):
            accounts for HTTP errors 404 and 429. Any other HTTP error is saved to log.txt.
         '''
         try:
-            with urllib.request.Request("https://www.reddit.com/user/{}.json".format(self.username),
-                                        data = None,
-                                        headers={"user-agent":"Mozilla"}) as url:
-                json_data = json.loads(url.read().decode())
-                return json_data
+            with requests.get("http://reddit.com/user/{}.json".format(self.username),
+                             headers={"user-agent": "karmacompbot"}) as r:
+                r.raise_for_status()
+                return(json.loads(r.text))
+            # json_data = json.loads(f.read().decode())
+            # return json_data
 
-        except urllib.error.HTTPError as e:
-            if e.code == 404:
+        except requests.exceptions.HTTPError as e:
+            if "404" in str(e):
                 return 404
-            elif e.code == 429:
+            elif "429" in str(e):
                 return 429
             else:
                 return None
-                logging.debug('importer HTTP Error: {}'.format(e.code))
+                logging.debug('importer HTTP Error: {}'.format(e))
 
         ## For using a local .json file:
         # with open('{}.json'.format(self.username)) as json_data:
