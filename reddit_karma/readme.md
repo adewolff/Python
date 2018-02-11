@@ -1,4 +1,4 @@
-##Reddit Karma analyzer
+## Reddit Karma analyzer
 
 This project was started as practice in OOP. 
 
