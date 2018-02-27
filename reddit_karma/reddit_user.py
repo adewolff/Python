@@ -39,15 +39,18 @@ class reddituser(object):
         
     def karma(self, submission_type):
         '''returns the karma for the most recent link posted'''
-        if submission_type in {"comment", "comments"}:
+        if submission_type.lower() in {"comment", "comments"}:
             vector = "t1"
-        elif submission_type in {"link","links"}:
+        elif submission_type.lower() in {"link","links"}:
             vector = "t3"
         i = 0
         type = self['data']['children'][i]['kind']
         while type != vector:
             type = self['data']['children'][i]['kind']
             i += 1
+            if i >= 25:
+                return None
+                logging.debug('Parsing error: No {} found in recent profile history.'.format(submission_type))
             continue
         return self['data']['children'][i]['data']['score']
 

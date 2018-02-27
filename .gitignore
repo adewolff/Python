@@ -6,3 +6,5 @@ reddit_karma/__pycache__/reddit_user.cpython-36.pyc
 .vscode/settings.json
 .vscode/launch.json
 reddit_karma/todo.txt
+.vscode/tasks.json
+error-log.txt
