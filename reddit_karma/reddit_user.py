@@ -36,9 +36,11 @@ class user(object):
         # with open('{}.json'.format(self.username)) as json_data:
         #     d = json.load(json_data)
         #     return(d)
+
         
     def karma(self, submission_type):
         '''returns the karma for the nth link or comment posted posted'''
+
         if submission_type.lower() in {"comment", "comments"}:
             vector = "t1"
         elif submission_type.lower() in {"link","links"}:
@@ -53,11 +55,5 @@ class user(object):
                 logging.debug('Parsing error: No {} found in recent profile history.'.format(submission_type))
             continue
         return self.data['data']['children'][i]['data']['score']
-
-    def comment(self):
-        return self.data
-
-
-
         
 
